@@ -1,19 +1,6 @@
 #include "field.hpp"
 #include <iostream>
 
-/* class Field : public QPushButton
-{
-    Q_OBJECT
-    public:
-        
-
-    public slots:
-        
-
-    private:
-        char m_currentChar;
-} */
-
 Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int row, int col)
 {
     QPushButton *m_button = new QPushButton(parent);
@@ -26,7 +13,8 @@ Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int 
     m_button->update();
     QObject::connect(m_button, SIGNAL (clicked()), this, SLOT (changeVal()));
 
-    m_currentChar = 'a';
+    PrepareFieldImages();
+    m_currentGraph = 0;
 }
 
 Field::~Field(void)
@@ -35,12 +23,24 @@ Field::~Field(void)
 
 void Field::changeVal(void)
 {
-    // m_button->setText("aaaa");
-    m_currentChar++;
-
-    // QString str = QChar(inBuffer[1]);
     QPushButton *caller = qobject_cast<QPushButton *>(sender());
     if (!caller)
         return;
-    caller->setText(QChar(m_currentChar));
+
+    caller->setIcon(m_buttonGraphics[m_currentGraph % 3]);
+    caller->setIconSize(QSize(100, 100));
+    m_currentGraph++;
+}
+
+void
+Field::PrepareFieldImages(void)
+{
+    m_buttonGraphics.resize(3);
+
+    QPixmap pixmap;
+    m_buttonGraphics[0] = pixmap;
+    pixmap.load("./krzysztof.png");
+    m_buttonGraphics[1] = pixmap;
+    pixmap.load("./maryla.jpg");
+    m_buttonGraphics[2] = pixmap;
 }

@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include <QPalette>
 #include <QColor>
+#include <QPixmap>
+
+#include <vector>
 
 class Field : public QWidget
 {
@@ -17,8 +20,12 @@ class Field : public QWidget
         void changeVal();
 
     private:
-        char m_currentChar;
+        void PrepareFieldImages(void);
+
+        int m_currentGraph;
         QPushButton *m_button;
+
+        std::vector<QPixmap> m_buttonGraphics;
 };
 
 #endif
