@@ -1,9 +1,17 @@
 #include "field.hpp"
 #include <iostream>
 
-Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int row, int col)
+int Field::m_currentGraph = 1;
+GameField *Field::m_gameField = NULL;
+
+void Field::changePlayer(int playerNum)
 {
-    QPushButton *m_button = new QPushButton(parent);
+    m_currentGraph = playerNum % 2;
+}
+
+Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int row, int col, int idx)
+{
+    m_button = new QPushButton(parent);
     m_button->resize(fieldWidth, fieldHeight);
     m_button->move(spacing + col * (fieldWidth + spacing), spacing + row * (fieldHeight + spacing));
     QPalette pal = m_button->palette();
@@ -13,8 +21,10 @@ Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int 
     m_button->update();
     QObject::connect(m_button, SIGNAL (clicked()), this, SLOT (changeVal()));
 
-    PrepareFieldImages();
-    m_currentGraph = 0;
+    m_gameField = static_cast<GameField*>(parent);
+    m_fieldIdx = idx;
+
+    prepareFieldImages();
 }
 
 Field::~Field(void)
@@ -23,24 +33,26 @@ Field::~Field(void)
 
 void Field::changeVal(void)
 {
-    QPushButton *caller = qobject_cast<QPushButton *>(sender());
-    if (!caller)
+    if (m_wasClicked)
         return;
 
-    caller->setIcon(m_buttonGraphics[m_currentGraph % 3]);
-    caller->setIconSize(QSize(100, 100));
-    m_currentGraph++;
+    m_button->setIcon(m_buttonGraphics[m_currentGraph]);
+    m_button->setIconSize(QSize(100, 100));
+
+    m_gameField->changedButtonIdx(m_fieldIdx);
+
+    m_wasClicked = true;
 }
 
 void
-Field::PrepareFieldImages(void)
+Field::prepareFieldImages(void)
 {
-    m_buttonGraphics.resize(3);
+    m_buttonGraphics.resize(2);
 
     QPixmap pixmap;
-    m_buttonGraphics[0] = pixmap;
     pixmap.load("./krzysztof.png");
-    m_buttonGraphics[1] = pixmap;
+    m_buttonGraphics[0] = pixmap;
     pixmap.load("./maryla.jpg");
-    m_buttonGraphics[2] = pixmap;
+    m_buttonGraphics[1] = pixmap;
 }
+
