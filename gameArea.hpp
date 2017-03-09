@@ -11,10 +11,9 @@ class GameField : public QWidget
         explicit GameField(QWidget *parent = 0);
         ~GameField();
 
-        void changedButtonIdx(int idx);
-
     signals:
     public slots:
+        void changedButtonIdx(int idx);
 
     private:
         void createAndAttachMainField(QWidget *parent);

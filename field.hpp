@@ -24,10 +24,12 @@ class Field : public QWidget
     public slots:
         void changeVal();
 
+    signals:
+        void playerChanged(int idx);
+
     private:
         void prepareFieldImages(void);
 
-        static GameField *m_gameField;
         QPushButton *m_button;
         std::vector<QPixmap> m_buttonGraphics;
         static int m_currentGraph;

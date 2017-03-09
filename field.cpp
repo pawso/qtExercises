@@ -1,7 +1,7 @@
 #include "field.hpp"
 #include <iostream>
 
-int Field::m_currentGraph = 1;
+int Field::m_currentGraph = 0;
 GameField *Field::m_gameField = NULL;
 
 void Field::changePlayer(int playerNum)
@@ -39,7 +39,9 @@ void Field::changeVal(void)
     m_button->setIcon(m_buttonGraphics[m_currentGraph]);
     m_button->setIconSize(QSize(100, 100));
 
-    m_gameField->changedButtonIdx(m_fieldIdx);
+    emit playerChanged(m_fieldIdx);
+
+    // m_gameField->changedButtonIdx(m_fieldIdx);
 
     m_wasClicked = true;
 }
@@ -50,9 +52,12 @@ Field::prepareFieldImages(void)
     m_buttonGraphics.resize(2);
 
     QPixmap pixmap;
-    pixmap.load("./krzysztof.png");
+    pixmap.load("./krzysztof.jpg");
     m_buttonGraphics[0] = pixmap;
     pixmap.load("./maryla.jpg");
     m_buttonGraphics[1] = pixmap;
 }
+
+
+
 
