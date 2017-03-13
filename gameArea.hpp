@@ -12,6 +12,7 @@ class GameField : public QWidget
         ~GameField();
 
     signals:
+        void roundFinished(int playerIdx, int fieldIdx);
     public slots:
         void changedButtonIdx(int idx);
 

@@ -2,7 +2,6 @@
 #include <iostream>
 
 int Field::m_currentGraph = 0;
-GameField *Field::m_gameField = NULL;
 
 void Field::changePlayer(int playerNum)
 {
@@ -21,7 +20,6 @@ Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int 
     m_button->update();
     QObject::connect(m_button, SIGNAL (clicked()), this, SLOT (changeVal()));
 
-    m_gameField = static_cast<GameField*>(parent);
     m_fieldIdx = idx;
 
     prepareFieldImages();
@@ -41,8 +39,6 @@ void Field::changeVal(void)
 
     emit playerChanged(m_fieldIdx);
 
-    // m_gameField->changedButtonIdx(m_fieldIdx);
-
     m_wasClicked = true;
 }
 
@@ -56,6 +52,13 @@ Field::prepareFieldImages(void)
     m_buttonGraphics[0] = pixmap;
     pixmap.load("./maryla.jpg");
     m_buttonGraphics[1] = pixmap;
+}
+
+void
+Field::reset(void)
+{
+    m_wasClicked = false;
+    m_button->setIcon(QIcon());
 }
 
 

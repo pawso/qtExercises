@@ -1,5 +1,6 @@
 #include "gameArea.hpp"
 #include "field.hpp"
+#include "gameManager.hpp"
 #include <QApplication>
 #include <iostream>
 
@@ -15,6 +16,9 @@ GameField::GameField(QWidget *parent) : QWidget(parent) {
 
     createAndAttachMainField(parent);
     createAndAttachFields(parent);
+
+    GameManager *gm = new GameManager(parent);
+    QObject::connect(this, SIGNAL (roundFinished(int, int)), gm, SLOT (roundFinished(int, int)));
 }
 
 GameField::~GameField()
@@ -46,6 +50,7 @@ GameField::changedButtonIdx(int idx)
     static int i = 0;
     std::cout << "Idx is" << i << std::endl;
     Field::changePlayer(i++);
+    emit roundFinished(1, idx);
 }
 
 

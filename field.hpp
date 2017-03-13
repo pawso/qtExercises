@@ -19,6 +19,7 @@ class Field : public QWidget
         ~Field(void);
 
         static void changePlayer(int playerNum);
+        void reset(void);
 
 
     public slots:
