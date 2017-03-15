@@ -1,3 +1,6 @@
+#ifndef _GAME_MANAGER_HPP_
+#define _GAME_MANAGER_HPP_
+
 #include <QWidget>
 #include <QObject>
 #include <vector>
@@ -16,3 +19,5 @@ class GameManager : public QObject
         std::vector<unsigned> m_fields;
         bool checkState(void);
 };
+
+#endif

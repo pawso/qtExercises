@@ -1,8 +1,6 @@
 #ifndef _FIELD_HPP_
 #define _FIELD_HPP_
 
-#include "gameArea.hpp"
-
 #include <QWidget>
 #include <QPushButton>
 #include <QPalette>

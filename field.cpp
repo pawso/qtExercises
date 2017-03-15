@@ -5,7 +5,7 @@ int Field::m_currentGraph = 0;
 
 void Field::changePlayer(int playerNum)
 {
-    m_currentGraph = playerNum % 2;
+    m_currentGraph = playerNum - 1;
 }
 
 Field::Field(QWidget *parent, int spacing, int fieldWidth, int fieldHeight, int row, int col, int idx)

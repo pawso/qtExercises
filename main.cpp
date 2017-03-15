@@ -4,7 +4,7 @@
 #include "gameArea.hpp"
 
 const unsigned int APP_WIDTH = 600;
-const unsigned int APP_HEIGHT = 600;
+const unsigned int APP_HEIGHT = 600 + 100; /// space needed for one more button
 
 int main(int argc, char **argv)
 {
