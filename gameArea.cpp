@@ -2,6 +2,7 @@
 #include "gameManager.hpp"
 #include <QApplication>
 #include <iostream>
+#include <stdlib.h>
 
 GameField::GameField(QWidget *parent) : QWidget(parent)
 {
@@ -19,9 +20,11 @@ GameField::GameField(QWidget *parent) : QWidget(parent)
 
     GameManager *gm = new GameManager(parent);
     QObject::connect(this, SIGNAL (roundFinished(int, int)), gm, SLOT (roundFinished(int, int)));
+    QObject::connect(gm, SIGNAL (gameFinished(int)), this, SLOT (handleGameFinished(int)));
 
     m_playerIdx = 1;
     m_prevField = NULL;
+    m_parent = parent;
 }
 
 GameField::~GameField()
@@ -97,4 +100,15 @@ GameField::handleChangePlayerButton(void)
     Field::changePlayer(m_playerIdx);
 }
 
+void
+GameField::handleGameFinished(int playerNo)
+{
+    QPushButton *button = new QPushButton(this->parentWidget());
+    button->resize(160, 30);
+    button->move(300, 500);
+    std::string message = std::string("Player ") + std::to_string(playerNo) + std::string(" wins");
+    button->setText(message.c_str());
+    button->show();
 
+    std::cout << "recieved winner: " << playerNo << std::endl;
+}

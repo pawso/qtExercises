@@ -18,6 +18,7 @@ class GameField : public QWidget
     public slots:
         void changedButtonIdx(int idx);
         void handleChangePlayerButton(void);
+        void handleGameFinished(int playerNo);
 
     private:
         void createAndAttachMainField(QWidget *parent);
@@ -36,6 +37,7 @@ class GameField : public QWidget
         unsigned m_selectedField;
 
         Field *m_prevField;
+        QWidget *m_parent;
 };
 
 #endif /* _GAME_AREA_HPP_ */

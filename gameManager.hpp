@@ -14,10 +14,14 @@ class GameManager : public QObject
     public slots:
         void roundFinished(int playerIdx, int fieldIdx);
 
+    signals:
+        void gameFinished(int winnerNum);
 
     private:
         std::vector<unsigned> m_fields;
-        bool checkState(void);
+        short m_roundNo;
+
+        bool checkState(int fieldChangedIdx, int playerIdx);
 };
 
 #endif
